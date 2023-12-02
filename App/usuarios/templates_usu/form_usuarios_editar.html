@@ -1,0 +1,59 @@
+
+{% extends 'plantilla.html' %} {% block body %} 
+
+<form id="formularioUsuario" method="POST" action="/usuarios/editar_db/{{usuario.0}}">
+  <div class="mb-3">
+    <label for="nombreCompleto" class="form-label">Nombre Completo</label>
+    <input
+      type="text"
+      class="form-control"
+      id="nombreCompleto"
+      name="nombreCompleto"
+      value="{{usuario.1}}"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Correo Electrónico</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      name="email"
+      value="{{usuario.2}}"
+      required
+    />
+  </div>
+  <!-- <div class="mb-3">
+    <label for="password" class="form-label">Contraseña</label>
+    <input
+        type="password"
+        class="form-control"
+        id="password"
+        name="password"
+        values="{{usuario.3}}"" required
+    />
+  </div> -->
+  <div class="mb-3 form-check">
+    <input
+        type="checkbox"
+        class="form-check-input"
+        id="activo"
+        name="activo"
+        {% if usuario.4 == 'activo': %}
+        checked
+        {% endif %}      
+    />
+    <label class="form-check-label" for="activo">Activo</label>
+  </div>
+  <div class="mb-3">
+    <label for="rol" class="form-label">Rol</label>
+    <select class="form-select" id="rol" name="rol" required>
+      <option value="1">Selecciona un rol</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+
+
+{% endblock %}

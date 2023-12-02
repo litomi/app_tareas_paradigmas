@@ -1,0 +1,31 @@
+{% extends 'plantilla.html' %} {% block body %} {% if usuarios %}
+<table class="table table-sm table-hover">
+  <thead>
+    <th>#</th>
+    <th>Nombre</th>
+    <th>Correo</th>
+    <th>Estado</th>
+    <th>Rol</th>
+    <th>Operaciones</th>
+  </thead>
+  <tbody>
+    {% for usr in usuarios %}
+    <tr>
+      <td>{{usr.0}}</td>
+      <td>{{usr.1}}</td>
+      <td>{{usr.2}}</td>
+      <td>{{usr.4}}</td>
+      <td>{{usr.5}}</td>
+      <td>
+        <a class="btn btn-success btn-sm" href="/usuarios/editar/{{usr.0}}">
+          Editar
+        </a>
+        <a class="btn btn-warning btn-sm" href="/usuarios/eliminar/{{usr.0}}">
+          Eliminar
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif%} {% endblock %}

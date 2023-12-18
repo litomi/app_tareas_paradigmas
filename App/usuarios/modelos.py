@@ -7,6 +7,6 @@ class Usuario:
     nombreCompleto:str
     email:str
     password:str
-    activo:bool
+    activo:str
     rol:str
-    fechaCreación:datetime
+    fechaCreación:str

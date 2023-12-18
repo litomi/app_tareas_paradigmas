@@ -1,26 +1,46 @@
-{% extends 'plantilla.html' %} {% block body %} 
+{% extends 'plantilla.html' %} {% block body %}
+<h2>Agregar usuario</h2>
 <form id="formularioUsuario" method="post" action="/usuarios/agregar_db">
-    <div class="mb-3">
-        <label for="nombreCompleto" class="form-label">Nombre Completo</label>
-        <input type="text" class="form-control" id="nombreCompleto" name="nombreCompleto" required>
+    <div class="row">
+        <div class="mb-3 col-4">
+            <label for="nombreCompleto" class="form-label">Nombre Completo</label>
+            <input type="text" class="form-control" id="nombreCompleto" name="nombreCompleto" required>
+        </div>
+        <div class="mb-3 col-4">
+            <label for="email" class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="email" class="form-label">Correo Electrónico</label>
-        <input type="email" class="form-control" id="email" name="email" required>
+
+    <div class="row">
+        <div class="mb-3 col-4">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+
     </div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="password" name="password" required>
+
+    <div class="row p-3">
+        <div class="mb-3 form-check col-2">
+            <input type="checkbox" class="form-check-input" id="activo" name="activo">
+            <label class="form-check-label" for="activo">Activo</label>
+        </div>
+        <div class="mb-3 col-4">
+            <label for="rol" class="form-label">Rol</label>
+            <select name="rol" id="rol">
+                {% for rol in roles %}
+                <option value="{{rol.0}}">{{rol.1}}</option>
+                {% endfor%}
+            </select>
+        </div>
     </div>
-    <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="activo" name="activo">
-        <label class="form-check-label" for="activo">Activo</label>
+    <div class="row">
+        <div class="col-4">
+            <button type="submit" class="btn btn-primary w-100">Guardar</button>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="rol" class="form-label">Rol</label>
-        <input type="text" class="form-control" id="rol" name="rol" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Enviar</button>
+
+
 </form>
 
 {% endblock %}

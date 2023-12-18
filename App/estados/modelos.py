@@ -1,10 +1,11 @@
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime 
 
 @dataclass
-class Usuario:
+
+class Estado:
     id:int
     nombre:str
     descripcion:str
     color:str
-    fechaCreación:datetime
+    fecha_creacion:str

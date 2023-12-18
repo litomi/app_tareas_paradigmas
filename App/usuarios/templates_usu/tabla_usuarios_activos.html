@@ -1,15 +1,13 @@
 {% extends 'plantilla.html' %} {% block body %} {% if usuarios %}
 
-  <h1>Usuarios</h1>
-  <a class="btn w-25 btn-success" type="submit" href="/usuarios/crear">Agregar usuario</a>
-  <a class="btn w-25 btn-success" type="submit" href="/usuarios/activos">Ver usuarios activos</a>
-  
+  <h1>Usuarios activos</h1>
+
+
   <table class="table table-striped table-hover">
     <thead>
       <th>#</th>
       <th>Nombre</th>
       <th>Correo</th>
-      <th>Estado</th>
       <th>Rol</th>
       <th>Operaciones</th>
     </thead>
@@ -18,7 +16,6 @@
       <tr>
         <td>{{usr.0}}</td>
         <td>{{usr.1}}</td>
-        <td>{{usr.2}}</td>
         <td>{{usr.4}}</td>
         <td>{{usr.5}}</td>
         <td>

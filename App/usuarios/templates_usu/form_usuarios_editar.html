@@ -46,12 +46,16 @@
     />
     <label class="form-check-label" for="activo">Activo</label>
   </div>
-  <div class="mb-3">
-    <label for="rol" class="form-label">Rol</label>
-    <select class="form-select" id="rol" name="rol" required>
-      <option value="1">Selecciona un rol</option>
-    </select>
+
+    <div class="mb-3">
+      <label for="rol" class="form-label">Rol</label>
+      <select name="rol" id="rol">
+          {% for rol in roles%}
+          <option value="{{rol.0}}">{{rol.1}}</option>
+          {% endfor%}
+      </select>
   </div>
+
   <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
 

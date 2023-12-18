@@ -1,0 +1,41 @@
+{% extends 'plantilla.html' %} {% block body %} {% if estados %}
+
+<h1>Estados</h1>
+<a class="btn btn-success w-25" href="/estados/crear"> Agregar Estado </a>
+<table class="table table-striped table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th>#</th>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th>Color</th>
+      <th>Fecha Creación</th>
+      <th>Operaciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for est in estados %}
+    <tr>
+      <td>{{ est.0 }}</td>
+      <td>{{ est.1 }}</td>
+      <td>{{ est.2 }}</td>
+      <td>{{ est.3 }}</td>
+      <td>{{ est.4 }}</td>
+      <td>
+        <a class="btn btn-success btn-sm" href="/estados/editar/{{ est.0 }}">
+          Editar
+        </a>
+        <a
+          class="btn btn-danger btn-sm"
+          href="/estados/eliminar/{{ est.0 }}"
+          onclick="return confirm('¿Está seguro que desea eliminar este registro?');"
+        >
+          Eliminar
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endif %} {% endblock %}

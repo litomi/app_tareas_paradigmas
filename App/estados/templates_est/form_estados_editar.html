@@ -1,0 +1,43 @@
+{% extends 'plantilla.html' %} {% block body %}
+
+<h1>Editar estado</h1>
+<form id="formularioEstado" method="post" action="/estados/editar_db/{{estado.0}}">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Estado</label>
+                <input type="text" class="form-control" name="nombre" placeholder="Nombre de estado"
+                    value="{{estado.1}}" required />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="color" class="form-label">Seleccione un color</label>
+
+                <select class="form-select" aria-label="Seleccione un color" name="color" required>
+                    <option value="" selected>Elija un color para el estado</option>
+                    {% for col in colores: %}
+                    {% set color_estado = "selected" if col.1 == estado.3 else "" %}
+                    <option {{color_estado}} value="{{col.1}}" style="background-color: {{col.1}};"> {{col.0}} </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea class="form-control" name="descripcion" id="descripcion" cols="30" rows="5"
+                    placeholder="Breve descripción del estado">{{estado.2}}</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

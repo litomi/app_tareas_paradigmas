@@ -1,0 +1,31 @@
+{% extends 'plantilla.html' %} {% block body %} {% if categorias %}
+<h2>Categorías</h2>
+<a class="btn btn-success w-25" href="/categorias/crear"> Agregar Categoría </a>
+<table class="table table-striped table-hover">
+  <thead>
+    <th>#</th>
+    <th>Nombre</th>
+    <th>Descripción</th>
+    <th>Color</th>
+    <th>Operaciones</th>
+  </thead>
+  <tbody>
+    {% for ctg in categorias %}
+    <tr>
+      <td>{{ctg.0}}</td>
+      <td>{{ctg.1}}</td>
+      <td>{{ctg.2}}</td>
+      <td>{{ctg.3}}</td>
+      <td>
+        <a class="btn btn-success btn-sm" href="/categorias/editar/{{ctg.0}}">
+          Editar
+        </a>
+        <a class="btn btn-warning btn-sm" href="/categorias/eliminar/{{ctg.0}}">
+          Eliminar
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif%} {% endblock %}

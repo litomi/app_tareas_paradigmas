@@ -1,0 +1,22 @@
+{% extends 'plantilla.html' %} {% block body %} 
+<form id="formularioCategoria" method="post" action="/categorias/agregar_db">
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" required>
+    </div>
+    <div class="mb-3">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <input type="descripcion" class="form-control" id="descripcion" name="descripcion" required>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <div class="mb-3">
+        <label for="color" class="form-label">Color</label>
+        <input type="text" class="form-control" id="color" name="color" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+
+{% endblock %}

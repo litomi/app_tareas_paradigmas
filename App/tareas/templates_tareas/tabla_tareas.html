@@ -1,0 +1,43 @@
+{% extends 'plantilla.html' %} {% block body %} {% if tareas %}
+<h1>Tareas</h1>
+<a href="/tareas/crear" class="btn btn-primary w-25">Agregar Tarea</a>
+<table class="table table-striped table-hover">
+  <thead>
+    <th>#</th>
+    <th>Título</th>
+    <!-- <th>Descripción</th> -->
+    <th>Categoría</th>
+    <th>Creador</th>
+    <th>Asignado</th>
+    <th>Creación</th>
+    <th>Vencimiento</th>
+    <!-- <th>Editado</th> -->
+    <th>Estado</th>
+    <th>Operaciones</th>
+  </thead>
+  <tbody>
+    {% for tra in tareas %}
+    <tr>
+      <td>{{tra.0}}</td>
+      <td>{{tra.1}}</td>
+      <!-- <td>{{tra.2}}</td> -->
+      <td>{{tra.3}}</td>
+      <td>{{tra.4}}</td>
+      <td>{{tra.5}}</td>
+      <td>{{tra.6}}</td>
+      <td>{{tra.7}}</td>
+      <!-- <td>{{tra.8}}</td> -->
+      <td>{{tra.9}}</td>
+      <td>
+        <a class="btn btn-success btn-sm" href="">
+          Editar
+        </a>
+        <a class="btn btn-warning btn-sm" href="">
+          Eliminar
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif%} {% endblock %}

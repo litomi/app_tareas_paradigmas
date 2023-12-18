@@ -14,7 +14,6 @@ class Rol:
     nombre:str
     permisos:'Permiso'
     fechaCreación:datetime
-    activo: bool
 
 @dataclass
 class Permiso:  

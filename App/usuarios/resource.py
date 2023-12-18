@@ -1,27 +1,31 @@
 from flask import Flask as flask, render_template, request, redirect, url_for, flash, Blueprint, jsonify
-from base import connection
+from App.base import connection
+from App.usuarios import ServiciosUsuarios
+from App.roles import ServiciosRoles
+
 
 usuarios_servicios = Blueprint("usuarios_servicios", __name__, template_folder='templates_usu')
 
-
-# Recupera los 'usuarios' de la base.
-# Envía los datos recuperados a el archivo
-# que contiene la tabla que muestra los usuarios.
+servicioUsuario = ServiciosUsuarios()
+serviciosRoles = ServiciosRoles()
 
 @usuarios_servicios.route('/usuarios')
-def listar_usuarios():
-    datos = None #limpiando
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM usuarios")
-    datos = cursor.fetchall()
-    cursor.close()
+def usuarios():
+    datos = servicioUsuario.listar_usuarios()
     return render_template('tabla_usuarios.html', usuarios = datos)
+
+@usuarios_servicios.route('/usuarios/activos')
+def usuarios_activos():
+    usaurios = servicioUsuario.listar_usuarios()
+    datos =  servicioUsuario.filtrar_usuarios_activos(usuarios)
+    return render_template('tabla_usuarios_activos.html', usuarios = datos)
 
 # Devuelve el archivo que contiene el formulario
 # para cargar un usuario.
 @usuarios_servicios.route('/usuarios/crear')
 def crear_formulario():
-    return render_template('form_usuarios_agregar.html')
+    roles = serviciosRoles.listar_roles()
+    return render_template('form_usuarios_agregar.html', roles)
 
 
 # Recupera los datos recibidos por 'request' desde el formulario.
@@ -36,13 +40,7 @@ def guardar_usuario():
         activo = 'activo' if 'activo' in request.form else 'inactivo'
         rol = int(request.form['rol'])
 
-        sql = "INSERT INTO usuarios(nombreCompleto, email, password, activo, rol) \
-            VALUES(%s, %s, %s, %s, %s)"
-
-        cursor = connection.cursor()
-        cursor.execute(sql, (nombreCompleto, email, password, activo, rol))
-        connection.commit()
-        cursor.close()
+        ServiciosUsuarios.guardar_usuario(nombreCompleto, email, activo, rol, id)
 
     return redirect(url_for('usuarios_servicios.listar_usuarios'))
 
@@ -53,11 +51,9 @@ def guardar_usuario():
 
 @usuarios_servicios.route('/usuarios/editar/<int:id>')
 def obtener_usuario(id):
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM usuarios WHERE id = {}".format(id))
-    datos = cursor.fetchall()
-    cursor.close()
-    return render_template('form_usuarios_editar.html', usuario = datos[0])
+    datos = servicioUsuario.obtener_usuario(id)
+    roles = serviciosRoles.listar_roles()
+    return render_template('form_usuarios_editar.html', usuario = datos[0], roles = roles)
 
 
 # Recibe un 'id' de usuario.
@@ -71,32 +67,15 @@ def editar_usuario(id):
         nombreCompleto = request.form['nombreCompleto']
         email = request.form['email']
         activo = 'activo' if 'activo' in request.form else 'inactivo'
-        rol = int(request.form['rol'])
+        rol = int(request.form['rol'])  
 
-        sql = (
-            "UPDATE usuarios SET "
-            "nombreCompleto = %s, "
-            "email = %s, "
-            "activo = %s, "
-            "rol = %s "
-            "WHERE id = %s"
-            )
+        servicioUsuario.editar_usuario(nombreCompleto, email, activo, rol, id)
 
-        cursor = connection.cursor()
-        cursor.execute(sql, (nombreCompleto, email, activo, rol, id))
-        connection.commit()
-        cursor.close()
-
-    return redirect(url_for('usuarios_servicios.listar_usuarios'))
+    return redirect(url_for('usuarios_servicios.usuarios'))
 
 # Recibe un 'id' de usuario.
 # Eliminar al usuario correspondiente de la base.
 # Redirecciona a la tabla de usuarios.
-
 @usuarios_servicios.route('/usuarios/eliminar/<int:id>')
 def eliminar_usuario(id):
-    cursor = connection.cursor()
-    cursor.execute("DELETE FROM usuarios WHERE id = {}".format(id))
-    connection.commit()
-    cursor.close()
-    return redirect(url_for('usuarios_servicios.listar_usuarios'))
+    return ServiciosUsuarios.eliminar_usuario(id)

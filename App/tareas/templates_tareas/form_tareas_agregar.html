@@ -1,0 +1,93 @@
+{% extends 'plantilla.html' %} {% block body %}
+
+<h2>Crear tarea</h2>
+<form id="formularioTarea" method="post" action="/tareas/agregar_db">
+    <div class="row">
+        <div class="mb-3 col-3">
+            <label for="titulo" class="form-label">Título</label>
+            <input type="text" class="form-control" id="titulo" name="titulo" required>
+        </div>
+
+        <div class="mb-3 col-9">
+            <label for="descripcion" class="form-label">Descripcion</label>
+            <input type="descripcion" class="form-control" id="descripcion" name="descripcion" required>
+        </div>
+    </div>
+
+    <div class="row py-3 my-3">
+        <div class="col-4">
+            <label for="categoria" class="form-label">Categoría</label>
+            <select name="categoria" id="categoria">
+                {% if categorias %}
+                {% for cat in categorias %}
+                <option value="{{cat.0}}">{{cat.1}}</option>
+                {% endfor%}
+                {% endif %}
+            </select>
+        </div>
+
+        <!-- <div class="mb-3">
+        <label for="creada_por" class="form-label">Creada por</label>
+        <input type="creada_por" class="form-control" id="creada_por" name="password" required>
+    </div> -->
+
+        <div class=" col-4">
+            <label for="asignada_a" class="form-label">Asignada a</label>
+            <select name="usuarios" id="usuarios">
+                {% for usr in usuarios %}
+                <option value="{{usr.0}}">{{usr.1}}</option>
+                {% endfor%}
+            </select>
+        </div>
+
+        <div class="mb-3 form-check col-2">
+            <input type="checkbox" class="form-check-input" id="activo" name="activo">
+            <label class="form-check-label" for="activo">Activo</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="mb-3 col-3">
+            <label for="fecha_creacion" class="form-label">Creación</label>
+            <div class="input-group date datepicker">
+                <input type="text" class="form-control" id="fecha_creacion" name="fecha_creacion" required>
+                <span class="input-group-append">
+                    <span class="input-group-text bg-white">
+                        <i class="fa fa-calendar fa-lg form-control"></i>
+                    </span>
+                </span>
+            </div>
+            
+        </div>
+
+        <div class="mb-3 col-3">
+            <label for="fecha_vencimiento" class="form-label">Vencimiento</label>
+            <div class="input-group date datepicker" id="datepicker2">
+                <input type="text" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento" required>
+                <span class="input-group-append">
+                    <span class="input-group-text bg-white">
+                        <i class="fa fa-calendar fa-lg form-control"></i>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <button type="submit" class="btn btn-primary w-100">Guardar</button>
+        </div>
+    </div>
+
+</form>
+
+<script type="text/javascript">
+    $(function() {
+        $('.datepicker').datepicker();
+    });
+
+</script>
+
+
+{% endblock %}
